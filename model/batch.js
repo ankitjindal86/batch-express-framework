@@ -13,12 +13,12 @@ var batchSchema = new Schema({
 var batch = mongoose.model('batch', batchSchema);
 
 
-module.exports.createBatch = function ({name, email, password}, callback) {
+module.exports.createBatch = function ({name, excecutionFile, frequency}, callback) {
   // encrypt the password before storing
   var user = new User({
     name: name,
-    email: email,
-    password: encHelper.encrypt(password)
+    excecutionFile: excecutionFile,
+    frequency: frequency
   });
 
   user.save(function (err, doc) {
@@ -30,7 +30,7 @@ module.exports.createBatch = function ({name, email, password}, callback) {
     } else {
       callback({
         code: 0,
-        message: "User Registered Successfully!",
+        message: "Batch created Successfully!",
       })
     }
   })
