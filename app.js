@@ -6,13 +6,17 @@ var express = require('express')
     , cors = require('cors')
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: '*',
+    preflightContinue: false,
     optionsSuccessStatus: 200,
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
+// controllers
+app.use(require('./controllers'));
 
 db.initialize
     .then((data)=>{
@@ -24,5 +28,3 @@ db.initialize
         console.log('Initialization Failed:', err)
     });
 
-// controllers
-app.use(require('./controllers'));
