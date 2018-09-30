@@ -1,7 +1,8 @@
 
 var express = require('express')
     , router = express.Router()
-    , batch = require('../model/batch');
+    , batch = require('../model/batch')
+    ,config = require('./config');
 
 
 router.get('/', function (req, res) {
@@ -39,6 +40,8 @@ router.post('/', function (req, res) {
                 });
             } else {
 
+                
+
                //Start Create Job
                 cronSchedule = (req.body.second != null ) ? '*' : "'"+req.body.second;
                 cronSchedule += (req.body.minute != null ) ? ' *' : " "+ req.body.minute;
@@ -46,11 +49,6 @@ router.post('/', function (req, res) {
                 cronSchedule += (req.body.dayofmonth != null ) ? ' *' : " "+req.body.dayofmonth;
                 cronSchedule += (req.body.month != null ) ? ' *' : " "+req.body.month;
                 cronSchedule += (req.body.dayofweek != null ) ? ' *' : " "+req.body.dayofweek+"'";
-
-                const job = new CronJob(cronSchedule, function() {
-                    process(batchJob.executionFile);
-                });
-                //End Create job
 
                 //Save File to execute 
                 if (req.body.template != null )
@@ -69,7 +67,8 @@ router.post('/', function (req, res) {
                                     message: err.message,
                                 });
                             }
-                            else
+                            else            
+                                config.scheduleJob(batchJob.id,cronSchedule,fileName);
                                 res.status(200).json({
                                     code: 0,
                                     message: "New Batch job created Successfully!",

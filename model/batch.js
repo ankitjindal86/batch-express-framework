@@ -23,7 +23,6 @@ module.exports.createJob = function (reqData, callback) {
   // encrypt the password before storing
   var newJob = new batchJob({
     name: reqData.name,
-    excecutionFile: reqData.excecutionFile,
     frequency: reqData.frequency,
     minutes: reqData.minutes,
     hours: reqData.hours,
