@@ -11,6 +11,7 @@ var batchJobSchema = new Schema({
   "dayofmonth": "",
   "month": "",
   "dayofweek": "",
+  "dataTemplate": { type: String },
   "jobCreateDatee": "",
   "lastRunAt": "",
   "nextRunAt": ""
