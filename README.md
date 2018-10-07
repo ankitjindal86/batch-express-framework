@@ -14,3 +14,14 @@ Method | URI | Description
 POST | /v1/jobs | Create a new Job
 GET | /v1/jobs | Get all the jobs
 GET | /v1/jobs/:jobId | Get a specific job details
+
+### Data Model
+"name": { type: String }, 
+"frequency": "", //once , recurrence, 
+"second" : "", 
+"minute": "",
+"hour": "", 
+"dayofmonth": "", 
+"month": "", 
+"dayofweek": "", 
+"dataTemplate": { type: String }
