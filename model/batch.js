@@ -19,8 +19,8 @@ var batchJobSchema = new Schema({
 var batchJob = mongoose.model('batchJob', batchJobSchema);
 
 
-module.exports.createJob = function (reqData, callback) {
-  // encrypt the password before storing
+module.exports.saveJob = function (reqData, callback) {
+
   var newJob = new batchJob({
     name: reqData.name,
     frequency: reqData.frequency,
@@ -56,7 +56,6 @@ module.exports.findJob = function (jobId, callback) {
 
 
 module.exports.getAllJobs = function (callback) {
-  //'reportName reportType createdDate completedDate estimatedDuration downloadUrl'
   batchJob.find(function (err, data) {
     if (err || (data.length == 0) || !data)
       callback(err ? err : new Error('No batch job found'), null);

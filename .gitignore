@@ -1,3 +1,5 @@
 .dockerignore
 Dockerfile
 worker.js
+/node_modules
+package-lock.json

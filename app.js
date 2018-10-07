@@ -1,7 +1,6 @@
 var express = require('express')
     , app = express()
     , bodyParser = require('body-parser')
-    , app = express()
     , db = require('./db')
     , cors = require('cors')
 
@@ -26,5 +25,5 @@ db.initialize
     })
     .catch((err) => {
         console.log('Initialization Failed:', err)
-    });
+});
 
