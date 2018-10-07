@@ -7,7 +7,7 @@ module.exports.initialize = new Promise(
     function (resolve, reject) {
         // Mongo connection
         mongoose
-            .connect(config.mongo.uri)
+            .connect(config.mongo.uri, { useNewUrlParser: true })
             .then(()=>{
                 mongoDB = mongoose.connection
                 resolve({})

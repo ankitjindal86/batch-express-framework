@@ -1,0 +1,27 @@
+{
+  "name": "batch-framework",
+  "version": "1.0.0",
+  "description": "Batch job which excecutes file stores in template at user define con using node-cron",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "set PORT=9001 && set DEBUG=app && nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankitjindal86/batch-express-framework.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://gitlab.com/ankitjindal/express-batch-framework#README",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "cron": "^1.4.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}

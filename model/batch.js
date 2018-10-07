@@ -1,62 +1,66 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var batchSchema = new Schema({
-  "name": { type: String},
+var batchJobSchema = new Schema({
+  "name": { type: String },
   "executionFile": { type: String },
-  "frequency": "",
-  "dateTime": "",
+  "frequency": "", //once , recurrence,
+  "second" : "",
+  "minute": "",
+  "hour": "",
+  "dayofmonth": "",
+  "month": "",
+  "dayofweek": "",
+  "dataTemplate": { type: String },
+  "jobCreateDatee": "",
   "lastRunAt": "",
-  "nextRunAt": "",
+  "nextRunAt": ""
 });
 
-var batch = mongoose.model('batch', batchSchema);
+var batchJob = mongoose.model('batchJob', batchJobSchema);
 
 
-module.exports.createBatch = function ({name, email, password}, callback) {
-  // encrypt the password before storing
-  var user = new User({
-    name: name,
-    email: email,
-    password: encHelper.encrypt(password)
+module.exports.saveJob = function (reqData, callback) {
+
+  var newJob = new batchJob({
+    name: reqData.name,
+    frequency: reqData.frequency,
+    minutes: reqData.minutes,
+    hours: reqData.hours,
+    days: reqData.days,
+    months: reqData.months,
+    dayofweek: reqData.dayofweek,
+    jobCreateDatee: new Date().toLocaleString
   });
 
-  user.save(function (err, doc) {
-    if (err) {
-      callback({
-        code: -1,
-        message: err.message,
-      })
-    } else {
-      callback({
-        code: 0,
-        message: "User Registered Successfully!",
-      })
-    }
-  })
+  newJob.save(function (err, doc) {
+    if (err) 
+      callback(err,null)
+    else 
+      callback(null,doc)
+  });
 }
 
-module.exports.findBatch = function (batchName, callback) {
+module.exports.findJob = function (jobId, callback) {
 
-    var query = { name: batchName };
-    var options = {};
-    batch.findOne(query, function (err, data) {
-        if (err)
-            callback({ code: -1, message: 'Error in fetching batch details:' + err });
-        if (!data)
-            callback({ code: 1, message: 'No record for batch with name' + batchName });
-        if (data)
-            callback({ code: 0, message: 'SUCCESS', response: data });
-    });
+  var query = { id: jobId };
+  var options = {};
+  batchJob.findOne(query, function (err, data) {
+    if (err)
+      callback({ code: -1, message: 'Error in fetching batch job details:' + err });
+    if (!data)
+      callback({ code: 1, message: 'No record for batch job with id' + jobId });
+    if (data)
+      callback({ code: 0, message: 'SUCCESS', response: data });
+  });
 }
 
 
-module.exports.getBatches = function (id,callback) {
-      //'reportName reportType createdDate completedDate estimatedDuration downloadUrl'
-        reportModel.find(function (err, data) {
-            if (err || (data.length == 0) || !data )
-                callback(err ? err : new Error('No batch job found'), null);
-             else
-                callback({ code: 0, message: 'SUCCESS', response: data });
-        });
+module.exports.getAllJobs = function (callback) {
+  batchJob.find(function (err, data) {
+    if (err || (data.length == 0) || !data)
+      callback(err ? err : new Error('No batch job found'), null);
+    else
+      callback({ code: 0, message: 'SUCCESS', response: data });
+  });
 }
